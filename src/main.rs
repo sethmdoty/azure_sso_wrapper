@@ -22,13 +22,17 @@ fn main() {
         .get_matches();
 
     if matches.is_present("INSTALL") {
-        let _install_azure = Command::new("nm").arg("install").arg("-g").arg("aws-azure-login").output().expect("command failed");
+        let _install_azure = Command::new("npm").arg("install").arg("-g").arg("aws-azure-login").output().expect("command failed");
         println!("Installed aws-azure-login");
     }
     if matches.is_present("CONFIGURE") {
         let _configure_azure = println!("Configuring Sandbox");
-        let token = "TOKEN";
-        env::set_var(token, "some value");
-        assert_eq!(env::var(token), Ok("some value".to_string()));
+        let tenant = "AZURE_TENANT_ID";
+        let app_id = "AZURE_APP_ID_URI";
+        env::set_var(tenant, "some value");
+        env::set_var(app_id, "some value");
+        assert_eq!(env::var(tenant), Ok("some value".to_string()));
+        assert_eq!(env::var(app_id), Ok("some value".to_string()));
+        let _configure_environment = Command::new("aws-azure-login").arg("--profile").arg("sandbox").output().expect("command failed");
     }
 }
