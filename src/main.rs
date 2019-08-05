@@ -22,7 +22,7 @@ fn main() {
         .get_matches();
 
     if matches.is_present("INSTALL") {
-        let _install_azure = Command::new("npm").arg("install").arg("-g").arg("aws-azure-login").output().expect("command failed");
+        let _install_azure = Command::new("npm").arg("install").arg("-g").arg("aws-azure-login").status().expect("process failed");
         println!("Installed aws-azure-login");
     }
     if matches.is_present("CONFIGURE") {
@@ -33,6 +33,6 @@ fn main() {
         env::set_var(app_id, "some value");
         assert_eq!(env::var(tenant), Ok("some value".to_string()));
         assert_eq!(env::var(app_id), Ok("some value".to_string()));
-        let _configure_environment = Command::new("aws-azure-login").arg("--profile").arg("sandbox").output().expect("command failed");
+        let _configure_environment = Command::new("aws-azure-login").arg("--profile").arg("sandbox").status().expect("command failed");
     }
 }
