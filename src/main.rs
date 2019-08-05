@@ -23,7 +23,8 @@ fn main() {
 
     if matches.is_present("INSTALL") {
         let _install_azure = Command::new("npm").arg("install").arg("-g").arg("aws-azure-login").status().expect("process failed");
-        println!("Installed aws-azure-login");
+        assert!(_install_azure.success());
+        println!("aws-azure-login was installed");
     }
     if matches.is_present("CONFIGURE") {
         let _configure_azure = println!("Configuring Sandbox");
